@@ -1,7 +1,10 @@
 // PART 1: SHOW A FORTUNE
 
 function showFortune(evt) {
-  // TODO: get the fortune and show it in the fortune-text div
+
+  $.get("/fortune", res => {
+    $('#fortune-text').html(res);
+  });
 }
 
 $('#get-fortune-button').on('click', showFortune);
@@ -11,7 +14,11 @@ $('#get-fortune-button').on('click', showFortune);
 function showWeather(evt) {
   evt.preventDefault();
   const url = `/weather?zipcode=${$('#zipcode-field').val()}`;
-  // TODO: request weather with that URL and show the forecast in #weather-info
+  const formData = $('#zipcode-field').val();
+
+  $.get(url, formData, res => {
+  $('#weather-info').html(res.forecast);
+  });
 }
 
 $('#weather-form').on('submit', showWeather);
